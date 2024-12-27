@@ -4,10 +4,7 @@ import (
 	"encoding/base64"
 	"testing"
 
-	"github.com/ionos-cloud/external-dns-ionos-webhook/internal/ionoscloud"
-
-	"github.com/ionos-cloud/external-dns-ionos-webhook/cmd/webhook/init/configuration"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/internal/ionoscore"
+	"github.com/hikhvar/external-dns-inwx-webhook/cmd/webhook/init/configuration"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )
@@ -69,10 +66,10 @@ func TestInit(t *testing.T) {
 			assert.NoErrorf(t, err, "error creating provider")
 			assert.NotNil(t, dnsProvider)
 			if tc.providerType == "core" {
-				_, ok := dnsProvider.(*ionoscore.Provider)
+				//	_, ok := dnsProvider.(*ionoscore.Provider)
 				assert.True(t, ok, "provider is not of type ionoscore.Provider")
 			} else if tc.providerType == "cloud" {
-				_, ok := dnsProvider.(*ionoscloud.Provider)
+				//	_, ok := dnsProvider.(*ionoscloud.Provider)
 				assert.True(t, ok, "provider is not of type ionoscloud.Provider")
 			}
 		})

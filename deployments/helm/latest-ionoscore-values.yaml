@@ -16,7 +16,7 @@ extraArgs:
 
 sidecars:
   - name: webhook
-    image: ghcr.io/ionos-cloud/external-dns-ionos-webhook:latest
+    image: ghcr.io/hikhvar/external-dns-inwx-webhook:latest
     imagePullPolicy: Always
     ports:
       - containerPort: 8888

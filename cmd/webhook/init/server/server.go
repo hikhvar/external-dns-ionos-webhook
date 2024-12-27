@@ -14,9 +14,9 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/ionos-cloud/external-dns-ionos-webhook/cmd/webhook/init/configuration"
+	"github.com/hikhvar/external-dns-inwx-webhook/cmd/webhook/init/configuration"
 
-	"github.com/ionos-cloud/external-dns-ionos-webhook/pkg/webhook"
+	"github.com/hikhvar/external-dns-inwx-webhook/pkg/webhook"
 )
 
 // Init server initialization function

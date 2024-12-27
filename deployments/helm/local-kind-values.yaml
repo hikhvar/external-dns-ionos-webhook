@@ -16,7 +16,7 @@ extraArgs:
 
 sidecars:
   - name: webhook
-    image: localhost:5001/external-dns-ionos-webhook:latest
+    image: localhost:5001/external-dns-inwx-webhook:latest
     imagePullPolicy: Always
     ports:
       - containerPort: 8888

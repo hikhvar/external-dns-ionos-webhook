@@ -3,7 +3,7 @@ package provider
 import (
 	"testing"
 
-	"github.com/ionos-cloud/external-dns-ionos-webhook/pkg/endpoint"
+	"github.com/hikhvar/external-dns-inwx-webhook/pkg/endpoint"
 	"github.com/stretchr/testify/require"
 )
 

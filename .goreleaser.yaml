@@ -1,4 +1,4 @@
-project_name: external-dns-ionos-webhook
+project_name: external-dns-inwx-webhook
 version: 2
 
 
@@ -33,7 +33,7 @@ archives:
     - goos: windows
       format: zip
 dockers:
-  - id: external-dns-ionos-webhook
+  - id: external-dns-inwx-webhook
     use: buildx
     image_templates:
       - "{{ .Env.REGISTRY }}/{{ .Env.IMAGE_NAME }}:{{ .Tag }}"
@@ -43,7 +43,7 @@ dockers:
     goarch: amd64
     build_flag_templates:
       - --label=org.opencontainers.image.title={{ .ProjectName }}
-      - --label=org.opencontainers.image.description=ionos DNS webhook for external-dns
+      - --label=org.opencontainers.image.description=inwx DNS webhook for external-dns
       - --label=org.opencontainers.image.url=https://{{ .Env.GITHUB_SERVER_URL }}/{{ .Env.GITHUB_REPOSITORY}}
       - --label=org.opencontainers.image.source=https://{{ .Env.GITHUB_SERVER_URL }}/{{ .Env.GITHUB_REPOSITORY}}
       - --label=org.opencontainers.image.version={{ .Version }}
@@ -58,19 +58,19 @@ checksum:
 snapshot:
   version_template: "{{ incpatch .Version }}-next"
 
-docker_signs:
-  - cmd: cosign
-    args:
-      - sign
-      - --tlog-upload=false
-      - --key
-      - env://COSIGN_PRIVATE_KEY
-      - "${artifact}@${digest}"
-      - --yes
-    artifacts: images
-    ids:
-      - external-dns-ionos-webhook
-    output: true
+#docker_signs:
+#  - cmd: cosign
+#    args:
+#      - sign
+#      - --tlog-upload=false
+#      - --key
+#      - env://COSIGN_PRIVATE_KEY
+#      - "${artifact}@${digest}"
+#      - --yes
+#    artifacts: images
+#    ids:
+#      - external-dns-inwx-webhook
+#    output: true
 
 changelog:
   use: github

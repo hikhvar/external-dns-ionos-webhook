@@ -19,8 +19,8 @@ package provider
 import (
 	"context"
 
-	"github.com/ionos-cloud/external-dns-ionos-webhook/pkg/endpoint"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/pkg/plan"
+	"github.com/hikhvar/external-dns-inwx-webhook/pkg/endpoint"
+	"github.com/hikhvar/external-dns-inwx-webhook/pkg/plan"
 )
 
 // Provider defines the interface DNS providers should implement.

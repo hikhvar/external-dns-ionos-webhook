@@ -1,48 +1,21 @@
 package dnsprovider
 
 import (
-	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
 
-	"github.com/ionos-cloud/external-dns-ionos-webhook/internal/ionoscloud"
-
 	"github.com/caarlos0/env/v8"
-
-	"github.com/ionos-cloud/external-dns-ionos-webhook/cmd/webhook/init/configuration"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/internal/ionos"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/internal/ionoscore"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/pkg/endpoint"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/pkg/provider"
+	"github.com/hikhvar/external-dns-inwx-webhook/cmd/webhook/init/configuration"
+	"github.com/hikhvar/external-dns-inwx-webhook/internal/inwx"
+	"github.com/hikhvar/external-dns-inwx-webhook/pkg/endpoint"
+	"github.com/hikhvar/external-dns-inwx-webhook/pkg/provider"
 	log "github.com/sirupsen/logrus"
 )
 
-type IONOSProviderFactory func(baseProvider *provider.BaseProvider, ionosConfig *ionos.Configuration) provider.Provider
-
-func setDefaults(apiEndpointURL, authHeader string, ionosConfig *ionos.Configuration) {
-	if ionosConfig.APIEndpointURL == "" {
-		ionosConfig.APIEndpointURL = apiEndpointURL
-	}
-	if ionosConfig.AuthHeader == "" {
-		ionosConfig.AuthHeader = authHeader
-	}
-}
-
-var IonosCoreProviderFactory = func(baseProvider *provider.BaseProvider, ionosConfig *ionos.Configuration) provider.Provider {
-	setDefaults("https://api.hosting.ionos.com/dns", "X-API-Key", ionosConfig)
-	return ionoscore.NewProvider(baseProvider, ionosConfig)
-}
-
-var IonosCloudProviderFactory = func(baseProvider *provider.BaseProvider, ionosConfig *ionos.Configuration) provider.Provider {
-	setDefaults("https://dns.de-fra.ionos.com", "Bearer", ionosConfig)
-	return ionoscloud.NewProvider(baseProvider, ionosConfig)
-}
-
 func Init(config configuration.Config) (provider.Provider, error) {
 	var domainFilter endpoint.DomainFilter
-	createMsg := "Creating IONOS provider with "
+	createMsg := "Creating inwx provider with "
 
 	if config.RegexDomainFilter != "" {
 		createMsg += fmt.Sprintf("Regexp domain filter: '%s', ", config.RegexDomainFilter)
@@ -68,29 +41,20 @@ func Init(config configuration.Config) (provider.Provider, error) {
 		createMsg += "no kind of domain filters"
 	}
 	log.Info(createMsg)
-	ionosConfig := ionos.Configuration{}
+	/*ionosConfig := ionos.Configuration{}
 	if err := env.Parse(&ionosConfig); err != nil {
 		return nil, fmt.Errorf("reading ionos ionosConfig failed: %v", err)
 	}
-	createProvider := detectProvider(&ionosConfig)
-	baseProvider := provider.NewBaseProvider(domainFilter)
+
 	ionosProvider := createProvider(baseProvider, &ionosConfig)
 	return ionosProvider, nil
-}
 
-func detectProvider(ionosConfig *ionos.Configuration) IONOSProviderFactory {
-	split := strings.Split(ionosConfig.APIKey, ".")
-	if len(split) == 3 {
-		tokenBytes, err := base64.RawStdEncoding.DecodeString(split[1])
-		if err != nil {
-			return IonosCoreProviderFactory
-		}
-		var tokenMap map[string]interface{}
-		err = json.Unmarshal(tokenBytes, &tokenMap)
-		if err != nil {
-			return IonosCoreProviderFactory
-		}
-		return IonosCloudProviderFactory
+	*/
+
+	cfg := inwx.ProviderConfig{}
+	if err := env.Parse(&cfg); err != nil {
+		return nil, fmt.Errorf("failed to parse inwx config: %w", err)
 	}
-	return IonosCoreProviderFactory
+	baseProvider := provider.NewBaseProvider(domainFilter)
+	return inwx.NewProvider(baseProvider, cfg)
 }

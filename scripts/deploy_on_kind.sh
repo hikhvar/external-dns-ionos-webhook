@@ -9,7 +9,7 @@ LOCAL_REGISTRY_RUNNING=$(docker ps -a | grep -q $LOCAL_REGISTRY_NAME && echo "tr
 
 # docker
 IMAGE_REGISTRY=localhost:$LOCAL_REGISTRY_PORT
-IMAGE_NAME=external-dns-ionos-webhook
+IMAGE_NAME=external-dns-inwx-webhook
 IMAGE=$IMAGE_REGISTRY/$IMAGE_NAME
 
 #kind

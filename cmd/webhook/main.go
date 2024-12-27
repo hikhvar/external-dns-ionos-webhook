@@ -3,20 +3,16 @@ package main
 import (
 	"fmt"
 
-	"github.com/ionos-cloud/external-dns-ionos-webhook/cmd/webhook/init/configuration"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/cmd/webhook/init/dnsprovider"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/cmd/webhook/init/logging"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/cmd/webhook/init/server"
-	"github.com/ionos-cloud/external-dns-ionos-webhook/pkg/webhook"
+	"github.com/hikhvar/external-dns-inwx-webhook/cmd/webhook/init/configuration"
+	"github.com/hikhvar/external-dns-inwx-webhook/cmd/webhook/init/dnsprovider"
+	"github.com/hikhvar/external-dns-inwx-webhook/cmd/webhook/init/logging"
+	"github.com/hikhvar/external-dns-inwx-webhook/cmd/webhook/init/server"
+	"github.com/hikhvar/external-dns-inwx-webhook/pkg/webhook"
 	log "github.com/sirupsen/logrus"
 )
 
 const banner = `
-  ___ ___  _  _  ___  ___  
- |_ _/ _ \| \| |/ _ \/ __| 
-  | | (_) | .  | (_) \__ \
- |___\___/|_|\_|\___/|___/
- external-dns-ionos-webhook
+ external-dns-inwx-webhook
  version: %s (%s)
 
 `
